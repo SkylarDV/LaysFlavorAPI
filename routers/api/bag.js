@@ -4,6 +4,7 @@ const bagController = require('../../controllers/api/bag');
 
 
 router.get('/', bagController.getAll);
+router.post('/', bagController.addNew);
 
 
 module.exports = router;

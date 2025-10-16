@@ -19,4 +19,26 @@ const getAll = async (req, res) => {
     }
 };
 
+const addNew = async (req, res) => {
+    let bag = new Bag();
+    bag.name = req.body.name;
+    bag.flavor = req.body.flavor;
+
+    bag.save()
+        .then(doc => {
+            res.json({
+                status: "success",
+                message: "Bag Saved",
+                data: { bag: doc }
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                status: "error",
+                message: err.message
+            });
+        });
+};
+
 module.exports.getAll = getAll;
+module.exports.addNew = addNew;

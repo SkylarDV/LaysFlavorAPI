@@ -1,0 +1,8 @@
+{
+  "db": {
+    "uri": "mongodb+srv://dorienvermeulen82_db_user:ew89sC7nh3mgJa9G@laysflavor.6nw88cq.mongodb.net/?retryWrites=true&w=majority&appName=LaysFlavor"
+  },
+  "server": {
+    "port": 3000
+  }
+}

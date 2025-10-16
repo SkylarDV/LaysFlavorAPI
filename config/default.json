@@ -1,0 +1,8 @@
+{
+  "db": {
+    "uri": "mongodb://localhost:27017/LaysFlavor"
+  },
+  "server": {
+    "port": 3000
+  }
+}
