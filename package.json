@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "name": "laysflavorapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SkylarDV/LaysFlavorAPI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SkylarDV/LaysFlavorAPI/issues"
+  },
+  "homepage": "https://github.com/SkylarDV/LaysFlavorAPI#readme"
+}
