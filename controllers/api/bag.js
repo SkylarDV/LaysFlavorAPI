@@ -21,7 +21,7 @@ const getAll = async (req, res) => {
 const getOne = async (req, res) => {
     try {
         const bagId = req.params.id;
-        const bag = await Bag.findById(bag);
+        const bag = await Bag.findById(bagId);
         if (!bag) {
             return res.status(404).json({
                 status: "error",
@@ -46,6 +46,11 @@ const addNew = async (req, res) => {
     let bag = new Bag();
     bag.name = req.body.name;
     bag.flavor = req.body.flavor;
+    bag.colour = req.body.colour;
+    bag.textColour = req.body.textColour;
+    bag.font = req.body.font;
+    bag.bagImage = req.body.bagImage;
+    bag.creator = req.body.creator;
 
     bag.save()
         .then(doc => {
