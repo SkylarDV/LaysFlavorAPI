@@ -43,8 +43,7 @@ const getOne = async (req, res) => {
 };
 
 const signup = async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
+    const { username, password, admin } = req.body;
 
     if (!username || !password) {
         return res.status(400).json({
@@ -55,18 +54,22 @@ const signup = async (req, res) => {
 
     try {
         const user = await new Promise((resolve, reject) => {
-            User.register(new User({ username }), password, (err, user) => {
+            // Only allow admin flag when explicitly provided; default to false.
+            const newUser = new User({ username, admin: !!admin });
+            User.register(newUser, password, (err, createdUser) => {
                 if (err) return reject(err);
-                resolve(user);
+                resolve(createdUser);
             });
         });
 
-        const token = jwt.sign({ _id: user._id, username: user.username }, process.env.JWT_SECRET || "Jouno");
+        const token = jwt.sign({ _id: user._id, username: user.username, admin: user.admin }, process.env.JWT_SECRET || "Jouno");
         return res.json({ 
             status: "success", 
             message: "User registered successfully", 
             data: { 
+                _id: user._id,
                 username: user.username,
+                admin: user.admin,
                 token: token 
             } });
     } catch (error) {
