@@ -72,11 +72,18 @@ const updateOne = async (req, res) => {
     try {
         const bagId = req.params.id;
 
+        const updateData = {};
+        if (req.body.name !== undefined) updateData.name = req.body.name;
+        if (req.body.flavor !== undefined) updateData.flavor = req.body.flavor;
+        if (req.body.colour !== undefined) updateData.colour = req.body.colour;
+        if (req.body.textColour !== undefined) updateData.textColour = req.body.textColour;
+        if (req.body.font !== undefined) updateData.font = req.body.font;
+        if (req.body.bagImage !== undefined) updateData.bagImage = req.body.bagImage;
+        if (req.body.creator !== undefined) updateData.creator = req.body.creator;
+
         const updated = await Bag.findByIdAndUpdate(
             bagId,
-            { name: req.body.name, 
-                flavor: req.body.flavor 
-            },
+            updateData,
             { new: true }
         );
 
