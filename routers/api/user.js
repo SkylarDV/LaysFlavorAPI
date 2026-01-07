@@ -6,5 +6,6 @@ router.get('/', authController.getAll);
 router.get('/:id', authController.getOne);
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
+router.delete('/:id', authController.deleteUser);
 
 module.exports = router;

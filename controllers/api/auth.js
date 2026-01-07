@@ -106,7 +106,33 @@ const login = async (req, res) => {
     }
 }
 
+const deleteUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const deleted = await User.findByIdAndDelete(userId);
+        if (!deleted) {
+            return res.status(404).json({
+                status: "error",
+                message: "User not found"
+            });
+        }
+        res.json({
+            status: "success",
+            message: "User Deleted",
+            data: { user: deleted }
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: "Internal Server Error",
+            error: error.message
+        });
+    } 
+};
+
+
 module.exports.getAll = getAll;
 module.exports.getOne = getOne;
 module.exports.signup = signup;
 module.exports.login = login;
+module.exports.deleteUser = deleteUser;
