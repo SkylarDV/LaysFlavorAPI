@@ -1,3 +1,5 @@
+// Load environment variables from .env if present
+try { require('dotenv').config(); } catch (_) {}
 const config = require('config');
 
 function getMongoUri() {
