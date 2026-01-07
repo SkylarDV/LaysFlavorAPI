@@ -130,9 +130,64 @@ const deleteUser = async (req, res) => {
     } 
 };
 
+const changePassword = async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+        const userId = req.userId;
+
+        if (!oldPassword || !newPassword) {
+            return res.status(400).json({
+                status: "error",
+                message: "Both old and new password are required"
+            });
+        }
+
+        if (!userId) {
+            return res.status(401).json({
+                status: "error",
+                message: "Authentication required"
+            });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                status: "error",
+                message: "User not found"
+            });
+        }
+
+        // Use passport-local-mongoose's changePassword method
+        await new Promise((resolve, reject) => {
+            user.changePassword(oldPassword, newPassword, (err) => {
+                if (err) return reject(err);
+                resolve();
+            });
+        });
+
+        res.json({
+            status: "success",
+            message: "Password changed successfully"
+        });
+    } catch (error) {
+        if (error.name === 'IncorrectPasswordError') {
+            return res.status(401).json({
+                status: "error",
+                message: "Current password is incorrect"
+            });
+        }
+        res.status(500).json({
+            status: "error",
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
+};
+
 
 module.exports.getAll = getAll;
 module.exports.getOne = getOne;
 module.exports.signup = signup;
 module.exports.login = login;
 module.exports.deleteUser = deleteUser;
+module.exports.changePassword = changePassword;
